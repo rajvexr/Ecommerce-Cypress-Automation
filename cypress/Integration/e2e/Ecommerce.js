@@ -1,45 +1,18 @@
 import HomePage from '../POM/HomePage'
 import CartPage from '../POM/CartPage'
+import data from '../../fixtures/testData.json'
 
 describe('Purchasing products',() => {
 
-    const homePage = new HomePage()
     const cartPage = new CartPage()
 
 
     beforeEach(() => {
 
-        cy.fixture('testData').then((data) => {
-
-            globalThis.data = data
-
-        })
-
+        cy.fixture('testData.json').as('data')
 
         cy.visit('https://tutorialsninja.com/demo/index.php?route=common/home')
         cy.url().should('includes', 'tutorialsninja')
-    })
-
-
-    it('Register new user',() => {
-
-        cy.get('li.dropdown').eq(0).click()
-        cy.get('ul.dropdown-menu-right li a').eq(0).click()
-
-        cy.newUserDetails(
-            "Raj", 
-            "Singh", 
-            "example90011@gmail.com", 
-            "0736426843", 
-            "epic")
-
-        cy.get('input[name="agree"]').check().should('be.checked')
-        cy.get('input.btn-primary').click()
-
-        cy.url().should('includes', 'success')
-        cy.get('div#content h1').should('have.text', 'Your Account Has Been Created!')
-
-
     })
 
 
@@ -48,7 +21,7 @@ describe('Purchasing products',() => {
     it('Purchasing a product', () => {
 
 
-        globalThis.data.products.forEach((el) => {
+        data.products.forEach((el) => {
 
             cy.selectProduct(el)
 
@@ -67,8 +40,8 @@ describe('Purchasing products',() => {
         cy.wait(3000)
 
 
-        homePage.getCartButton().click()
-        homePage.getViewCart().click()
+        HomePage.getCartButton()
+        HomePage.getViewCart()
 
 
         let sum = 0
@@ -98,10 +71,10 @@ describe('Purchasing products',() => {
         })
 
 
-        cartPage.getCheckoutButton().should('have.text', 'Checkout').click()
-
-        cy.get('input[name="email"]').type(globalThis.data.email)
-        cy.get('input[name="password"]').type(globalThis.data.password)
+        CartPage.getCheckoutButton().should('have.text', 'Checkout')
+        
+        cy.get('input[name="email"]').type(data.email)
+        cy.get('input[name="password"]').type(data.password)
 
         cy.get('input[value="Login"]').click()
 

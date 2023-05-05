@@ -1,14 +1,23 @@
 class HomePage {
 
+    elements = {
+
+        cartButton: () => cy.get('div#cart button').eq(0),
+        viewCart: () => cy.get('p.text-right a strong').eq(0)
+
+    }
+
     getCartButton(){
-        return cy.get('div#cart button').eq(0)
+        this.elements.cartButton().click()
+        return this
     }
 
     getViewCart(){
-        return cy.get('p.text-right a strong').eq(0)
+        this.elements.viewCart().click()
+        return this
     }
 
 
 }
 
-export default HomePage;
+export default new HomePage();
