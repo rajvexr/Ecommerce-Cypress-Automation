@@ -4,8 +4,6 @@ import data from '../../fixtures/testData.json'
 
 describe('Purchasing products',() => {
 
-    const cartPage = new CartPage()
-
 
     beforeEach(() => {
 
@@ -17,69 +15,27 @@ describe('Purchasing products',() => {
 
 
 
-
     it('Purchasing a product', () => {
 
 
-        data.products.forEach((el) => {
+        // data.products.forEach((el) => {
 
-            cy.selectProduct(el)
+        //     cy.selectProducts(el)
 
-        })
+        // })
 
-        cy.get('div.product-layout').should('have.length', 4)
+        cy.selectMultipleProducts()
 
-
-        cy.get('div.alert').then((el) => {
-
-            const successMessage = el.text()
-            expect(successMessage.includes('Success')).to.be.true
-
-        })
-
-        cy.wait(3000)
-
-
+        HomePage.getProductNumber('4')
+        HomePage.addedToCartMSG('Success')
         HomePage.getCartButton()
         HomePage.getViewCart()
 
+        cy.VerifyCartTotalPrice()
 
-        let sum = 0
+        CartPage.getCheckoutButton()
 
-        cy.get('tbody tr td.text-right:nth-child(6)').each((el, indexed, list) => {
-
-
-            const priceText = el.text()
-            // cy.log(priceText) 
-
-            let price = priceText.substring(1)
-            // cy.log(price)
-
-            sum+=Number(price)
-
-
-        }).then(() => {
-            cy.log(sum)
-        })
-
-        cy.get('table.table-bordered tr td.text-right:nth-child(2)').eq(7).then((el) => {
-
-            const totalPriceText = el.text()
-            const totalPrice = totalPriceText.substring(1)
-            expect(Number(totalPrice)).to.equal(sum)
-
-        })
-
-
-        CartPage.getCheckoutButton().should('have.text', 'Checkout')
-        
-        cy.get('input[name="email"]').type(data.email)
-        cy.get('input[name="password"]').type(data.password)
-
-        cy.get('input[value="Login"]').click()
-
-
-
+        cy.login(data.email[0], data.password[0])
 
     })
 

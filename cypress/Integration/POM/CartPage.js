@@ -1,11 +1,21 @@
 class CartPage{
 
-    getCheckoutButton(){
-        return cy.get('div.pull-right a.btn')
+    elements = {
+
+        checkoutButton: () => cy.get('div.pull-right a.btn').should('have.text', 'Checkout'),
+
     }
+
+
+    getCheckoutButton(){
+
+        this.elements.checkoutButton().click()
+        return this
+    }
+
 
 
 }
 
-export default CartPage;
+export default new CartPage();
 
