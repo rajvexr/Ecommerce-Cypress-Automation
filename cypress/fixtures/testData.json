@@ -1,9 +1,9 @@
 {
-  "products": ["Mac", "iPhone"],
+  "products": ["Mac"],
   "firstName": "Raj",
   "lastName": "Singh",
-  "email": ["raj1234@gmail.com", "raj12345@gmail.com"],
-  "password": ["epic123", "epic"],
+  "email": ["example@gmail.com", "example2@gmail.com"],
+  "password": ["epic", "epic"],
   "telephone": "0735475327"
 
 }

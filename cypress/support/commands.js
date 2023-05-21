@@ -44,6 +44,7 @@ Cypress.Commands.add('selectAProduct', (productName) => {
 
 })
 
+
 Cypress.Commands.add('selectMultipleProducts', () => {
 
     data.products.forEach((el) => {
@@ -55,16 +56,14 @@ Cypress.Commands.add('selectMultipleProducts', () => {
 })
 
 
-
-
 Cypress.Commands.add('userDetails', () => {  
 
-cy.get('div.form-group').eq(1).type(globalThis.data.firstName)
-cy.get('div.form-group').eq(2).type(globalThis.data.lastName)
-cy.get('div.form-group').eq(3).type(globalThis.data.email)
-cy.get('div.form-group').eq(4).type(globalThis.data.telephone)
-cy.get('div.form-group').eq(5).type(globalThis.data.password)
-cy.get('div.form-group').eq(6).type(globalThis.data.password)
+cy.get('div.form-group').eq(1).type(data.firstName)
+cy.get('div.form-group').eq(2).type(data.lastName)
+cy.get('div.form-group').eq(3).type(data.email[0])
+cy.get('div.form-group').eq(4).type(data.telephone)
+cy.get('div.form-group').eq(5).type(data.password[0])
+cy.get('div.form-group').eq(6).type(data.password[0])
 
 })
 
@@ -108,11 +107,10 @@ Cypress.Commands.add('VerifyCartTotalPrice', () => {
         expect(Number(totalPrice)).to.equal(sum)
 
     })
-
  })
 
 
- Cypress.Commands.add('login', (email, password) => { 
+ Cypress.Commands.add('loginInfo', (email, password) => { 
 
     LoginPage.getEmail(email)
     LoginPage.getPassword(password)

@@ -1,18 +1,11 @@
 {
   "devDependencies": {
-    "cypress": "^12.11.0"
+    "cypress": "^12.11.0",
+    "cypress-v10-preserve-cookie": "^1.2.1"
   },
-
-
   "scripts": {
-
     "open": "node_modules\\.bin\\cypress open",
-    "test":  "node_modules\\.bin\\cypress run",
+    "test": "node_modules\\.bin\\cypress run",
     "record": "npm test -- --record --key 3ea0472a-12f9-4d49-b826-6c62ad99e7d0"
-
   }
-
-
 }
-
-

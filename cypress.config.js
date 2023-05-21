@@ -9,10 +9,11 @@ module.exports = defineConfig({
     specPattern: 'cypress/integration/e2e/*js',
     projectId: "2viuzk",
     screenshotsFolder: 'cypress/failure/screenshots',
-
+    baseUrl: 'https://tutorialsninja.com/demo'
 
   },
 });
 
 
 // npx cypress run --record --key 3ea0472a-12f9-4d49-b826-6c62ad99e7d0
+// projectId: "2viuzk"

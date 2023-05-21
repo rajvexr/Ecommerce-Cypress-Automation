@@ -1,3 +1,6 @@
+import RegisterPage from '../POM/RegisterPage'
+import data from '../../fixtures/testData.json'
+import 'cypress-v10-preserve-cookie'
 
 
 
@@ -5,36 +8,42 @@ describe('Registering a user' , () => {
 
     beforeEach(() => {
 
-        cy.visit('https://tutorialsninja.com/demo/index.php?route=common/home')
-        cy.url().should('includes', 'tutorialsninja')
+        cy.visit('/index.php?route=account/register')
+        cy.fixture('testData.json').as('data')
+
+    })
+
+
+    it('User already exists',() => {
+
+
+        cy.url().should('includes', 'register')
+
+        cy.userDetails()
+
+        RegisterPage.AgreedPolicy('be.checked')
+        RegisterPage.getSubmitRegister()
+
+        RegisterPage.verifyAlreadyRegisteredAlert('Warning: E-Mail Address is already registered!')
 
     })
 
 
 
-    it('User already exists',() => {
-
-        cy.get('li.dropdown').eq(0).click()
-        cy.get('ul.dropdown-menu-right li a').eq(0).click()
+    it('New user registered',() => {
 
         cy.newUserDetails(
             "Raj", 
             "Singh", 
-            "example90011@gmail.com", 
+            "example2@gmail.com", 
             "0736426843", 
             "epic")
 
-        cy.get('input[name="agree"]').check().should('be.checked')
-        cy.get('input.btn-primary').click()
+        RegisterPage.AgreedPolicy('be.checked')
+        RegisterPage.getSubmitRegister()
 
-        cy.get('div.alert-danger').then((el) => {
-
-            const errorText = el.text()
-            expect(errorText).to.equal('Warning: E-Mail Address is already registered!')
-
-        })
-        // cy.url().should('includes', 'success')
-        // cy.get('div#content h1').should('have.text', 'Your Account Has Been Created!')
+        cy.url().should('includes', 'success')
+        RegisterPage.verifyRegisteredUser('Your Account Has Been Created!')
 
 
     })

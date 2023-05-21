@@ -9,20 +9,13 @@ describe('Purchasing products',() => {
 
         cy.fixture('testData.json').as('data')
 
-        cy.visit('https://tutorialsninja.com/demo/index.php?route=common/home')
+        cy.visit('/index.php?route=common/home')
         cy.url().should('includes', 'tutorialsninja')
     })
 
 
 
     it('Purchasing a product', () => {
-
-
-        // data.products.forEach((el) => {
-
-        //     cy.selectProducts(el)
-
-        // })
 
         cy.selectMultipleProducts()
 
@@ -35,7 +28,7 @@ describe('Purchasing products',() => {
 
         CartPage.getCheckoutButton()
 
-        cy.login(data.email[0], data.password[0])
+        cy.loginInfo(data.email[0], data.password[0])
 
     })
 
